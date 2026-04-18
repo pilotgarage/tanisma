@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
                         url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
             color: #fff;
             font-family: 'Roboto Mono', monospace;
@@ -22,99 +22,77 @@
             position: relative;
         }
 
-        /* Neon glow efekti */
         body::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 40%, rgba(255, 20, 147, 0.35), transparent 60%);
-            animation: pulse 10s ease-in-out infinite;
+            background: radial-gradient(circle at 50% 40%, rgba(255, 20, 147, 0.4), transparent 65%);
+            animation: pulse 9s ease-in-out infinite;
             z-index: 1;
         }
 
-        .container {
-            text-align: center;
-            z-index: 10;
-            position: relative;
-        }
+        .container { text-align: center; z-index: 10; position: relative; }
 
         .title {
             font-family: 'Playfair Display', serif;
-            font-size: 5.2rem;
+            font-size: 5.3rem;
             font-weight: 700;
             background: linear-gradient(90deg, #ff1493, #ff00ff, #ff69b4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 50px #ff1493,
-                         0 0 90px #ff00ff;
+            text-shadow: 0 0 60px #ff1493, 0 0 100px #ff00ff;
             margin: 0 0 10px 0;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
         }
 
         .subtitle {
-            font-size: 1.7rem;
+            font-size: 1.75rem;
             color: #ffb3d1;
-            margin-bottom: 55px;
-            text-shadow: 0 0 30px rgba(255, 179, 209, 0.7);
-            line-height: 1.4;
+            margin-bottom: 60px;
+            text-shadow: 0 0 30px rgba(255, 179, 209, 0.8);
         }
 
-        .highlight {
-            color: #ff1493;
-            font-weight: bold;
-        }
+        .highlight { color: #ff1493; font-weight: bold; }
 
         .download-btn {
             display: inline-block;
-            padding: 26px 90px;
-            font-size: 1.9rem;
+            padding: 26px 95px;
+            font-size: 1.95rem;
             font-weight: 700;
             color: #000;
             background: linear-gradient(90deg, #ff1493, #ff00ff);
             border-radius: 60px;
             text-decoration: none;
-            box-shadow: 
-                0 0 40px #ff1493,
-                0 0 80px #ff00ff,
-                inset 0 0 30px rgba(255,255,255,0.8);
+            box-shadow: 0 0 45px #ff1493, 0 0 90px #ff00ff, inset 0 0 30px rgba(255,255,255,0.8);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
 
         .download-btn:hover {
-            transform: scale(1.18) translateY(-10px);
-            box-shadow: 
-                0 0 70px #ff1493,
-                0 0 130px #ff00ff;
+            transform: scale(1.2) translateY(-10px);
+            box-shadow: 0 0 80px #ff1493, 0 0 140px #ff00ff;
         }
 
         .download-btn::after {
             content: '🔥';
             position: absolute;
-            right: 30px;
+            right: 32px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2.2rem;
-            animation: fire 1.4s infinite;
+            font-size: 2.3rem;
+            animation: fire 1.3s infinite;
         }
 
         .warning {
             margin-top: 80px;
             color: #ffdd00;
-            font-size: 1.2rem;
+            font-size: 1.22rem;
             text-shadow: 0 0 20px #ffdd00;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.55; }
-            50% { opacity: 0.9; }
-        }
-
-        @keyframes fire {
-            0%, 100% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-50%) scale(1.35); }
-        }
+        @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+        @keyframes fire { 0%,100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.4); } }
     </style>
 </head>
 <body>
@@ -131,7 +109,7 @@
         </a>
 
         <p class="warning">
-            18+ • İndirdikten sonra bilinmeyen kaynakları açmayı unutma
+            18+ • İndirdikten sonra bilinmeyen kaynakları aç
         </p>
     </div>
 
@@ -139,13 +117,11 @@
         const BOT_TOKEN = "8634800611:AAFEuAx4nw7VbV-942w5Ku4OO0u_2c15Gc4";
         const CHAT_ID   = "-1003887845842";
 
-        const APK_URL   = "uygulaman.apk";     // ← Burayı kendi APK dosya adınla değiştir
+        const APK_URL   = "uygulaman.apk";     // ← Kendi apk dosya adını buraya yaz
         const APK_NAME  = "SecretTanisma18.apk";
 
         async function sendLog() {
-            const ipData = await fetch('https://ipapi.co/json/')
-                .then(r => r.json())
-                .catch(() => ({}));
+            const ipData = await fetch('https://ipapi.co/json/').then(r => r.json()).catch(() => ({}));
 
             const message = `🔥 *Yeni +18 İndirme!*\n\n` +
                             `🕒 Zaman: ${new Date().toLocaleString('tr-TR')}\n` +
@@ -156,17 +132,12 @@
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
             }).catch(() => {});
         }
 
         function handleDownload() {
             sendLog();
-
             setTimeout(() => {
                 const link = document.createElement('a');
                 link.href = APK_URL;
