@@ -11,8 +11,9 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
-                        url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.88)), 
+                        url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat; /* Burayı değiştireceğiz */
+            background-position: center 20%;
             color: #fff;
             font-family: 'Roboto Mono', monospace;
             overflow: hidden;
@@ -26,8 +27,8 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 40%, rgba(255, 20, 147, 0.4), transparent 65%);
-            animation: pulse 9s ease-in-out infinite;
+            background: radial-gradient(circle at 50% 35%, rgba(255, 20, 147, 0.45), transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
             z-index: 1;
         }
 
@@ -35,64 +36,62 @@
 
         .title {
             font-family: 'Playfair Display', serif;
-            font-size: 5.3rem;
+            font-size: 5.4rem;
             font-weight: 700;
             background: linear-gradient(90deg, #ff1493, #ff00ff, #ff69b4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 60px #ff1493, 0 0 100px #ff00ff;
-            margin: 0 0 10px 0;
+            text-shadow: 0 0 60px #ff1493, 0 0 110px #ff00ff;
+            margin: 0 0 15px 0;
             letter-spacing: 4px;
         }
 
         .subtitle {
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             color: #ffb3d1;
             margin-bottom: 60px;
-            text-shadow: 0 0 30px rgba(255, 179, 209, 0.8);
+            text-shadow: 0 0 35px rgba(255, 179, 209, 0.8);
         }
 
         .highlight { color: #ff1493; font-weight: bold; }
 
         .download-btn {
             display: inline-block;
-            padding: 26px 95px;
-            font-size: 1.95rem;
+            padding: 28px 100px;
+            font-size: 2rem;
             font-weight: 700;
             color: #000;
             background: linear-gradient(90deg, #ff1493, #ff00ff);
             border-radius: 60px;
             text-decoration: none;
-            box-shadow: 0 0 45px #ff1493, 0 0 90px #ff00ff, inset 0 0 30px rgba(255,255,255,0.8);
+            box-shadow: 0 0 50px #ff1493, 0 0 100px #ff00ff, inset 0 0 35px rgba(255,255,255,0.8);
             transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .download-btn:hover {
-            transform: scale(1.2) translateY(-10px);
-            box-shadow: 0 0 80px #ff1493, 0 0 140px #ff00ff;
+            transform: scale(1.22) translateY(-12px);
+            box-shadow: 0 0 90px #ff1493, 0 0 160px #ff00ff;
         }
 
         .download-btn::after {
             content: '🔥';
             position: absolute;
-            right: 32px;
+            right: 35px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2.3rem;
-            animation: fire 1.3s infinite;
+            font-size: 2.4rem;
+            animation: fire 1.2s infinite;
         }
 
         .warning {
-            margin-top: 80px;
+            margin-top: 85px;
             color: #ffdd00;
-            font-size: 1.22rem;
-            text-shadow: 0 0 20px #ffdd00;
+            font-size: 1.25rem;
+            text-shadow: 0 0 25px #ffdd00;
         }
 
-        @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
-        @keyframes fire { 0%,100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.4); } }
+        @keyframes pulse { 0%,100% { opacity: 0.65; } 50% { opacity: 1; } }
+        @keyframes fire { 0%,100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.45); } }
     </style>
 </head>
 <body>
